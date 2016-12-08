@@ -3,9 +3,26 @@ import matplotlib.pyplot as plt
 import pylab
 
 bike_rentals = pd.read_csv("hour.csv")
-print(bike_rentals.head(5))
+# print(bike_rentals.head(5))
 
+
+# Visualize column "cnt" histogram
 plt.hist(bike_rentals["cnt"])
-plt.show()
+# plt.show()
 
-bike_rentals.corr(method="pearson")["cnt"]
+
+# Correlation between each column and column "cnt"
+# print(bike_rentals.corr(method="pearson")["cnt"])
+
+
+def assign_label(hour):
+    if hour >= 6 and hour <=12:
+        return 1
+    elif hour >= 13 and hour <=18:
+        return 2
+    elif hour >= 19 and hour <=24:
+        return 3
+    elif hour >= 0 and hour <=5:
+        return 4
+bike_rentals["time_label"] = bike_rentals["hr"].apply(assign_label)
+print(bike_rentals["time_label"])
