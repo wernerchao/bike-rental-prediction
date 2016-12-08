@@ -25,4 +25,9 @@ def assign_label(hour):
     elif hour >= 0 and hour <=5:
         return 4
 bike_rentals["time_label"] = bike_rentals["hr"].apply(assign_label)
-print(bike_rentals["time_label"])
+# print(bike_rentals["time_label"])
+
+
+# setting the training set and testing set here
+train = bike_rentals.sample(frac=0.8)
+test = bike_rentals.loc[~bike_rentals.index.isin(train.index)]
