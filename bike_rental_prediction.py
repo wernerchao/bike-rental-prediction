@@ -4,6 +4,7 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.cross_validation import cross_val_score
 
 import matplotlib.pyplot as plt
 import pylab
@@ -14,7 +15,7 @@ bike_rentals = pd.read_csv("hour.csv")
 
 
 # Visualize column "cnt" histogram
-plt.hist(bike_rentals["cnt"])
+# plt.hist(bike_rentals["cnt"])
 # plt.show()
 
 
@@ -56,17 +57,28 @@ error = np.mean((prediction - test["cnt"])**2)
 print("Linear Regression Error: ")
 print(error)
 
+# Calculate accuracy score
+linear_score = cross_val_score(alg, test[predictors], test["cnt"])
+print("Linear Regression SCORE: ")
+print(np.mean(linear_score))
+print("---------------")
+
 
 # Training/predicting decision tree here
 tree = DecisionTreeRegressor(random_state=0, 
                              min_samples_split=4,
-                            min_samples_leaf=2)
+                             min_samples_leaf=2)
 tree.fit(train[predictors], train["cnt"])
-
 tree_pred = tree.predict(test[predictors])
 tree_error = np.mean((tree_pred - test["cnt"])**2)
 print("Tree Error: ")
 print(tree_error)
+
+# Calculate score
+tree_score = cross_val_score(tree, test[predictors], test["cnt"])
+print("Tree SCORE: ")
+print(np.mean(tree_score))
+print("---------------")
 
 
 # Training/predicting random forest here
@@ -78,3 +90,8 @@ rf_pred = rf.predict(test[predictors])
 rf_error = np.mean((rf_pred - test["cnt"]) ** 2)
 print("Random Forest Error: ")
 print(rf_error)
+
+# Calculate score
+rf_score = cross_val_score(rf, test[predictors], test["cnt"])
+print("Random Forest SCORE: ")
+print(np.mean(rf_score))
