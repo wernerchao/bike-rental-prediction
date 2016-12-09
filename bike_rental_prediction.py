@@ -6,8 +6,8 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.cross_validation import cross_val_score
 
-import matplotlib.pyplot as plt
-import pylab
+# import matplotlib.pyplot as plt
+# import pylab
 
 
 bike_rentals = pd.read_csv("hour.csv")
@@ -40,7 +40,7 @@ bike_rentals["time_label"] = bike_rentals["hr"].apply(assign_label)
 train = bike_rentals.sample(frac=0.8)
 test = bike_rentals.loc[~bike_rentals.index.isin(train.index)]
 
-# Decide which column features to be trained
+# Decide which column features to be trained. Remove unnecessary columns.
 predictors = list(train.columns)
 predictors.remove("cnt")
 predictors.remove("casual")
@@ -58,9 +58,11 @@ print("Linear Regression Error: ")
 print(error)
 
 # Calculate accuracy score
-linear_score = cross_val_score(alg, test[predictors], test["cnt"])
+# linear_score = cross_val_score(alg, test[predictors], test["cnt"])
+linear_score = alg.score(test[predictors], test["cnt"])
 print("Linear Regression SCORE: ")
-print(np.mean(linear_score))
+# print(np.mean(linear_score))
+print linear_score
 print("---------------")
 
 
@@ -75,9 +77,11 @@ print("Tree Error: ")
 print(tree_error)
 
 # Calculate score
-tree_score = cross_val_score(tree, test[predictors], test["cnt"])
+# tree_score = cross_val_score(tree, test[predictors], test["cnt"])
+tree_score = tree.score(test[predictors], test["cnt"])
 print("Tree SCORE: ")
-print(np.mean(tree_score))
+# print(np.mean(tree_score))
+print tree_score
 print("---------------")
 
 
@@ -92,6 +96,8 @@ print("Random Forest Error: ")
 print(rf_error)
 
 # Calculate score
-rf_score = cross_val_score(rf, test[predictors], test["cnt"])
+# rf_score = cross_val_score(rf, test[predictors], test["cnt"])
+rf_score = rf.score(test[predictors], test["cnt"])
 print("Random Forest SCORE: ")
-print(np.mean(rf_score))
+# print(np.mean(rf_score))
+print rf_score
