@@ -11,16 +11,6 @@ from sklearn.cross_validation import cross_val_score
 
 
 bike_rentals = pd.read_csv("hour.csv")
-# print(bike_rentals.head(5))
-
-
-# Visualize column "cnt" histogram
-# plt.hist(bike_rentals["cnt"])
-# plt.show()
-
-
-# Correlation between each column and column "cnt"
-# print(bike_rentals.corr(method="pearson")["cnt"])
 
 
 def assign_label(hour):
