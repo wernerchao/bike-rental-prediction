@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import seaborn as sns
 
 import matplotlib.pyplot as plt
 import pylab
@@ -24,6 +25,9 @@ x_temp, y_temp = ecdf(bike_rentals['temp'])
 # Visualize column "cnt" histogram
 bins = np.int(np.sqrt(len(bike_rentals["cnt"])))
 plt.hist(bike_rentals["cnt"], bins=bins)
+plt.show()
+sns.swarmplot(y='temp', data=bike_rentals)
+_ = plt.ylabel('Temperature')
 plt.show()
 plt.plot(x_temp, y_temp, marker='.', linestyle='none')
 plt.show()
