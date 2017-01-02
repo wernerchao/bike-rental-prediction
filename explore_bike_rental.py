@@ -15,7 +15,7 @@ def ecdf(data):
     """Compute ECDF x & y for a one-dimensional array of measurements."""
     n = len(data)
     x = np.sort(data)
-    y = np.arange(1, n+1) / n
+    y = np.arange(1, float(n+1)) / float(n)
     print "ecdf: ", n, x, y
     return x, y
 
@@ -26,14 +26,9 @@ x_temp, y_temp = ecdf(bike_rentals['temp'])
 bins = np.int(np.sqrt(len(bike_rentals["cnt"])))
 plt.hist(bike_rentals["cnt"], bins=bins)
 plt.show()
-sns.swarmplot(y='temp', data=bike_rentals)
-_ = plt.ylabel('Temperature')
-plt.show()
 plt.plot(x_temp, y_temp, marker='.', linestyle='none')
 plt.show()
 
 
 # Correlation between each column and column "cnt"
 print(bike_rentals.corr(method="pearson")["cnt"])
-
-
